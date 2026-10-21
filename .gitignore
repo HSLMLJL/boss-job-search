@@ -1,0 +1,79 @@
+__pycache__/
+*.pyc
+.venv*/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.playwright-mcp/
+.codex/
+.codex_tmp/
+.worktrees/
+.claude/
+.pi/
+docs/superpowers/
+my-boss-profile.md
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+.ace-tool/
+.agents/skills/
+.agents/skills.disabled-*/
+.trellis/
+skills/*.disabled-*/
+*.html
+!src/**/*.html
+!demo/**/*.html
+!extension/*.html
+*.pdf
+crawl-data/
+
+# Local runtime and AI-PM radar outputs. These can contain account-derived
+# job data or encrypted login state and must never enter a public release.
+/.boss-agent/
+/outputs/
+/radar-output/
+/docs/radar-2026-09-06-runbook.md
+/docs/evidence/
+
+# Coverage artifacts
+.coverage
+.coverage.*
+coverage.xml
+coverage.json
+htmlcov/
+
+# recruiter local test files
+/tests/test_recruiter_client.py
+/tests/test_recruiter_commands.py
+/tests/test_recruiter_endpoints.py
+/tests/test_recruiter_platform.py
+/tests/test_resume_parser.py
+
+# 本地专属的社区发帖草稿（未公开前保留在本地）
+docs/blog/linuxdo-promo.md
+
+# baoyu-design working dir (canonical promo source lives in demo/promo-showcase/)
+designs/
+
+# Job Radar local plans, task state and disposable validation data
+/work/
+/_TASK_STATUS.json
+/PROJECT_STATE.md
+/my-search.json
+*.sqlite3*
+*.lock.local
+
+# Retained local migration material; public product docs/tests are allowlisted.
+/docs/*
+!/docs/job-radar*.md
+!/docs/github-metadata.json
+!/docs/images/
+/examples/*
+!/examples/job-radar-*.json
+/tests/*
+!/tests/test_job_radar_*.py
+!/tests/test_search_filters.py
+/evals/
+/mcp-server/
+/CHANGELOG.md

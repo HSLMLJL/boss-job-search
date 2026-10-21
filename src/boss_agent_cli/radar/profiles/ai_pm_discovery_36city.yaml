@@ -1,0 +1,57 @@
+name: ai_pm_discovery_36city
+
+# Broad exploration profile retained for comparing search-term contribution.
+# Run `boss radar plan --profile ai_pm_discovery_36city` before any real scan:
+# the full worst-case window intentionally requires multiple resumable runs.
+queries:
+  - AI产品经理
+  - 人工智能产品经理
+  - 大模型产品经理
+  - AIGC产品经理
+  - 智能体产品经理
+  - Agent产品经理
+
+cities:
+  - {name: 北京, code: "101010100"}
+  - {name: 上海, code: "101020100"}
+  - {name: 深圳, code: "101280600"}
+  - {name: 杭州, code: "101210100"}
+  - {name: 苏州, code: "101190400"}
+  - {name: 广州, code: "101280100"}
+  - {name: 合肥, code: "101220100"}
+  - {name: 成都, code: "101270100"}
+  - {name: 东莞, code: "101281600"}
+  - {name: 南京, code: "101190100"}
+  - {name: 武汉, code: "101200100"}
+  - {name: 西安, code: "101110100"}
+  - {name: 长沙, code: "101250100"}
+  - {name: 天津, code: "101030100"}
+  - {name: 重庆, code: "101040100"}
+  - {name: 无锡, code: "101190200"}
+  - {name: 宁波, code: "101210400"}
+  - {name: 青岛, code: "101120200"}
+  - {name: 济南, code: "101120100"}
+  - {name: 厦门, code: "101230200"}
+  - {name: 福州, code: "101230100"}
+  - {name: 佛山, code: "101280800"}
+  - {name: 珠海, code: "101280700"}
+  - {name: 郑州, code: "101180100"}
+  - {name: 常州, code: "101191100"}
+  - {name: 南通, code: "101190500"}
+  - {name: 嘉兴, code: "101210300"}
+  - {name: 绍兴, code: "101210500"}
+  - {name: 温州, code: "101210700"}
+  - {name: 大连, code: "101070200"}
+  - {name: 沈阳, code: "101070100"}
+  - {name: 烟台, code: "101120500"}
+  - {name: 惠州, code: "101280300"}
+  - {name: 南昌, code: "101240100"}
+  - {name: 贵阳, code: "101260100"}
+  - {name: 长春, code: "101060100"}
+
+max_pages_per_query: 10
+max_requests: 400
+delay_range: [8.0, 15.0]
+max_retries: 1
+retry_delay_seconds: 60.0
+output_dir: discovery-36city-output

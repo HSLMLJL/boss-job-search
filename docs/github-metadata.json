@@ -1,0 +1,9 @@
+{
+  "name": "boss-job-search",
+  "description": "BOSS直聘找工作工具｜职位搜索、岗位采集与求职助手：自定义关键词、多城市筛选、可选完整JD、Excel/CSV/JSON导出与进度记录。BOSS Zhipin job search tool, job scraper and job description exporter.",
+  "topics": ["boss-zhipin", "job-search", "job-search-tool", "job-scraper", "job-description", "excel-export", "career-tools", "python", "local-first"],
+  "publication_status": "published",
+  "repository_url": "https://github.com/HSLMLJL/boss-job-search",
+  "release_url": "https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.1.0",
+  "notes": "Public repository metadata for the v0.1.0 Beta release."
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+	body { width: 280px; padding: 12px; font-family: -apple-system, sans-serif; font-size: 13px; }
+	.status { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+	.dot { width: 10px; height: 10px; border-radius: 50%; }
+	.dot.on { background: #00b38a; }
+	.dot.off { background: #ccc; }
+	.label { color: #666; }
+	h3 { margin: 0 0 8px; font-size: 14px; }
+	button { width: 100%; margin: 10px 0 8px; padding: 8px; border: 0; border-radius: 6px; background: #00b38a; color: white; cursor: pointer; }
+	button:disabled { background: #aaa; cursor: default; }
+	#tab { margin-top: 6px; color: #444; }
+</style>
+</head>
+<body>
+<h3>BOSS Agent Bridge</h3>
+<div class="status">
+	<div class="dot" id="dot"></div>
+	<span id="label">检查中...</span>
+</div>
+<div class="label" id="hint"></div>
+<button id="claim">可选：使用当前 BOSS 搜索页</button>
+<div id="tab">未手动绑定；运行时将创建专用页</div>
+<script src="popup.js"></script>
+</body>
+</html>

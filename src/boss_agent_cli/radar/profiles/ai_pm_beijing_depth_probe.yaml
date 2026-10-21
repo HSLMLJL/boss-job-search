@@ -1,0 +1,21 @@
+name: ai_pm_beijing_depth_probe
+
+queries:
+  - AI产品经理
+
+cities:
+  - {name: 北京, code: "101010100"}
+
+# A high observation cap for a single-city coverage probe.  It never proves
+# platform exhaustion: a terminal page that is still full is recorded as
+# "coverage unverified", even when BOSS reports hasMore=false.
+# The scan still stops immediately on hasMore=false or any account-risk signal.
+max_pages_per_query: 50
+max_requests: 55
+# Use the settled, visible BOSS result list so this probe proves the natural
+# pagination boundary instead of exercising the legacy job-list channel.
+boss_search_transport: page_capture
+delay_range: [20.0, 35.0]
+max_retries: 0
+retry_delay_seconds: 60.0
+output_dir: beijing-depth-probe-output

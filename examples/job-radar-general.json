@@ -1,0 +1,33 @@
+{
+  "name": "华东产品岗位",
+  "keywords": ["产品经理", "增长产品", "用户研究"],
+  "cities": ["上海", "杭州"],
+  "details": "matched",
+  "filters": {
+    "salary": "",
+    "experience": "",
+    "education": "",
+    "industry": "",
+    "scale": "",
+    "stage": "",
+    "job_type": "",
+    "welfare": [],
+    "include": ["AI", "增长"],
+    "exclude": ["电话销售", "直播"],
+    "exclude_internships": true,
+    "exclude_hourly_daily": true,
+    "unknown": "keep"
+  },
+  "limits": {
+    "pages": 5,
+    "requests": 50,
+    "details": 30,
+    "jobs": 300,
+    "seconds": 900
+  },
+  "export": {
+    "formats": ["xlsx", "csv"],
+    "fields": ["title", "company", "city", "district", "salary", "experience", "education", "industry", "scale", "stage", "job_type", "welfare", "skills", "description", "url", "detail_status", "matched", "filter_reason", "queries", "first_seen", "last_seen", "published_at", "change", "status", "notes"],
+    "scope": "matched"
+  }
+}

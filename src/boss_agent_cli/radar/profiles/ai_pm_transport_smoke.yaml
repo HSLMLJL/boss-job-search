@@ -1,0 +1,14 @@
+name: ai_pm_transport_smoke
+
+queries:
+  - AI产品经理
+
+cities:
+  - {name: 北京, code: "101010100"}
+
+max_pages_per_query: 1
+max_requests: 1
+delay_range: [8.0, 15.0]
+max_retries: 0
+retry_delay_seconds: 60.0
+output_dir: transport-smoke-output

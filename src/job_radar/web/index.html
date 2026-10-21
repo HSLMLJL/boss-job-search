@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Job Radar｜BOSS 直聘职位搜索与求职助手</title><link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#top"><span class="brand-mark">JR</span><span>Job Radar <small>｜BOSS 直聘职位搜索与求职助手</small></span></a><div class="auth" id="authStatus">正在检查 Chrome 连接…</div></header>
+  <main id="top">
+    <section class="hero"><p class="eyebrow">本地职位搜索与求职清单</p><h1>BOSS 直聘职位搜索，整理你的求职清单。</h1><p>自定义关键词、多城市筛选、按需补全完整 JD，导出 Excel 持续跟进。</p><div class="hero-actions"><button class="primary" id="startRun">搜索并采集</button><button class="secondary" id="demoRun">体验合成示例</button></div></section>
+
+    <section class="notice"><strong>本地数据说明</strong><span>采集结果、备注和投递状态只保存在本地服务中。示例体验使用合成数据，不会访问招聘网站。</span></section>
+    <section class="layout">
+      <aside class="config-card" aria-label="任务配置">
+        <div class="section-title"><div><p class="eyebrow">任务配置</p><h2>告诉我你在找什么</h2></div><button class="text-btn" id="resetConfig">重置</button></div>
+        <label>任务名称<input id="taskName" placeholder="例如：秋招产品经理"></label>
+        <label>岗位关键词 <span class="hint">逗号或换行分隔</span><textarea id="keywords" rows="3" placeholder="产品经理, 用户增长, 数据产品"></textarea></label>
+        <fieldset class="choice-field"><legend>意向城市</legend><div id="cityChoices" class="choice-grid city-choices"></div></fieldset>
+        <div class="field-row"><label>JD 深度<select id="details"><option value="none">仅岗位信息</option><option value="matched" selected>初筛后补 JD</option><option value="all">所有岗位补 JD</option></select></label><span class="help" data-tip="仅岗位信息更快；初筛后补 JD 适合大多数人；所有岗位补 JD 更完整但耗时更多。">?</span></div>
+        <details open><summary>基础筛选</summary><p class="detail-note">采集后本地筛选；预算覆盖关键词与城市搜索出的原始列表。小预算可能尚未读到后页的匹配岗位。</p><div class="filter-grid" id="filterSelects"></div><fieldset class="choice-field"><legend>福利（可多选）</legend><div id="welfareChoices" class="choice-grid compact"></div></fieldset><label>包含词 <span class="hint">命中任一即可；逗号或换行</span><textarea id="include" rows="2" placeholder="例如：toB, SQL"></textarea></label><label>排除词 <span class="hint">逗号或换行</span><textarea id="exclude" rows="2" placeholder="例如：销售, 外包"></textarea></label><div class="switches"><label class="switch"><input type="checkbox" id="excludeInternships"><span></span>排除实习</label><label class="switch"><input type="checkbox" id="excludeHourly"><span></span>排除日结/小时工</label></div><label>缺失信息<select id="unknown"><option value="keep">保留，稍后人工判断</option><option value="exclude">排除缺失信息的岗位</option></select></label></details>
+        <details><summary>采集调用预算</summary><p class="detail-note">页数按每个「关键词 × 城市」组合计算；其余预算为本次启动或继续运行的总上限，不代表浏览器或系统的全部 HTTP 请求。达到岗位数上限后，可在剩余预算内补齐已保存岗位的 JD。</p><div class="budget-grid"><label>每组页数<input id="pages" type="number" min="1"></label><label>采集调用数<input id="requests" type="number" min="1"></label><label>补 JD 数<input id="detailLimit" type="number" min="0"></label><label>岗位数<input id="jobs" type="number" min="1"></label><label>秒数<input id="seconds" type="number" min="30"></label></div></details>
+        <details><summary>导出内容</summary><div id="formatChoices" class="segmented"></div><label>导出范围<select id="exportScope"><option value="matched">仅匹配岗位</option><option value="all">全部岗位</option><option value="new">本次新增</option></select></label><p class="hint block">选择字段</p><div id="fieldChoices" class="field-checks"></div></details>
+        <div class="template-row"><select id="templates"><option value="">载入已保存模板…</option></select><button class="secondary" id="saveTemplate">存模板</button></div>
+      </aside>
+      <section class="results-card"><div class="section-title"><div><p class="eyebrow">采集结果</p><h2 id="resultTitle">还没有开始采集</h2><label class="history-label">运行历史<select id="runHistory"><option value="">暂无运行记录</option></select></label></div><div class="run-controls"><button class="secondary" id="exportRun" disabled>按当前设置重新导出</button><button class="secondary" id="stopRun" disabled>停止</button><button class="secondary" id="resumeRun" disabled>继续</button></div></div><div id="runStatus" class="run-status empty">设置好条件后开始。你可以先体验合成示例，熟悉岗位卡片和人工状态。</div><p id="runContext" class="run-context" hidden></p><div id="exportBar" class="exports" hidden></div><div class="table-wrap"><table><thead><tr><th>岗位</th><th>匹配</th><th>薪资</th><th>经验</th><th>公司</th><th>状态</th></tr></thead><tbody id="jobsBody"><tr class="empty-row"><td colspan="6">这里会显示本次采集到的岗位</td></tr></tbody></table></div></section>
+    </section>
+  </main>
+  <template id="jobRow"><tr class="job-row"><td><a class="job-title" target="_blank" rel="noopener"></a><div class="job-meta"></div><button class="jd-toggle text-btn">查看 JD</button><div class="jd-content" hidden></div></td><td><span class="match-pill"></span><div class="filter-reason"></div></td><td class="salary"></td><td class="experience"></td><td class="company"></td><td><select class="job-status"><option>待看</option><option>考虑</option><option>已投</option><option>面试</option><option>不合适</option></select><textarea class="job-notes" rows="2" placeholder="写下判断或后续动作"></textarea></td></tr></template>
+  <div id="toast" role="status" aria-live="polite"></div><script src="/static/app.js"></script>
+</body></html>

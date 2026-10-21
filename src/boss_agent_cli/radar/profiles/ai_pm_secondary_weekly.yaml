@@ -1,0 +1,31 @@
+name: ai_pm_secondary_weekly
+
+# Secondary cities: intended for a lower-frequency (for example weekly) run.
+# This profile only defines the scope; it does not create or enable scheduling.
+queries:
+  - AI产品经理
+  - 人工智能产品经理
+  - 大模型产品经理
+  - AIGC产品经理
+  - 智能体产品经理
+  - Agent产品经理
+
+cities:
+  - {name: 成都, code: "101270100"}
+  - {name: 武汉, code: "101200100"}
+  - {name: 南京, code: "101190100"}
+  - {name: 合肥, code: "101220100"}
+  - {name: 苏州, code: "101190400"}
+
+# A high circuit breaker, not a five-page observation window.
+max_pages_per_query: 50
+max_requests: 400
+boss_search_transport: page_capture
+delay_range: [20.0, 35.0]
+max_retries: 0
+retry_delay_seconds: 60.0
+output_dir: secondary-weekly-output
+
+job_exclusions:
+  exclude_internships: true
+  exclude_hourly_daily_pay: true

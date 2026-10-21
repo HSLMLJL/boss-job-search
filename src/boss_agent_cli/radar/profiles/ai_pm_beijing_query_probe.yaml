@@ -1,0 +1,21 @@
+name: ai_pm_beijing_query_probe
+
+# Compare five supplemental terms against the completed main scan offline.
+# The formal daily database is separate; do not rerequest the main query here.
+queries:
+  - 人工智能产品经理
+  - 大模型产品经理
+  - AIGC产品经理
+  - 智能体产品经理
+  - Agent产品经理
+
+cities:
+  - {name: 北京, code: "101010100"}
+
+max_pages_per_query: 3
+max_requests: 20
+boss_search_transport: page_capture
+delay_range: [20.0, 35.0]
+max_retries: 0
+retry_delay_seconds: 60.0
+output_dir: beijing-query-probe-output

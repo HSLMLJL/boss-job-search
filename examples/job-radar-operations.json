@@ -1,0 +1,33 @@
+{
+  "name": "运营岗位·上海杭州",
+  "keywords": ["用户运营", "内容运营", "产品运营"],
+  "cities": ["上海", "杭州"],
+  "details": "matched",
+  "filters": {
+    "salary": "",
+    "experience": "",
+    "education": "",
+    "industry": "",
+    "scale": "",
+    "stage": "",
+    "job_type": "",
+    "welfare": [],
+    "include": ["用户增长", "内容"],
+    "exclude": ["电话销售", "主播"],
+    "exclude_internships": true,
+    "exclude_hourly_daily": true,
+    "unknown": "keep"
+  },
+  "limits": {
+    "pages": 5,
+    "requests": 50,
+    "details": 30,
+    "jobs": 300,
+    "seconds": 900
+  },
+  "export": {
+    "formats": ["xlsx"],
+    "fields": ["title", "company", "city", "salary", "experience", "education", "welfare", "skills", "description", "url", "detail_status", "filter_reason", "queries", "first_seen", "last_seen", "published_at", "change", "status", "notes"],
+    "scope": "matched"
+  }
+}
