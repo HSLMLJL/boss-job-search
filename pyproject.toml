@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "job-radar-boss"
-version = "0.1.0"
+version = "0.2.0"
 description = "BOSS 直聘职位搜索与求职助手：关键词搜索、岗位筛选、可选完整 JD 与 Excel 导出"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -112,7 +112,7 @@ packages = ["src/boss_agent_cli", "src/job_radar"]
 "THIRD_PARTY_NOTICES.md" = "THIRD_PARTY_NOTICES.md"
 
 [tool.pytest.ini_options]
-testpaths = ["tests/test_job_radar_workspace.py", "tests/test_job_radar_runner.py", "tests/test_job_radar_source.py", "tests/test_job_radar_bridge_source.py", "tests/test_job_radar_web_contract.py", "tests/test_search_filters.py"]
+testpaths = ["tests/test_job_radar_workspace.py", "tests/test_job_radar_runner.py", "tests/test_job_radar_source.py", "tests/test_job_radar_bridge_source.py", "tests/test_job_radar_web_contract.py", "tests/test_job_radar_desktop.py", "tests/test_job_radar_packaging.py", "tests/test_search_filters.py"]
 pythonpath = ["src"]
 
 # Python files intentionally use tabs. Ruff's indent-width controls visual width.

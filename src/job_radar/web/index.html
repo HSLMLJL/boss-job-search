@@ -9,6 +9,13 @@
   <main id="top">
     <section class="hero"><p class="eyebrow">本地职位搜索与求职清单</p><h1>BOSS 直聘职位搜索，整理你的求职清单。</h1><p>自定义关键词、多城市筛选、按需补全完整 JD，导出 Excel 持续跟进。</p><div class="hero-actions"><button class="primary" id="startRun">搜索并采集</button><button class="secondary" id="demoRun">体验合成示例</button></div></section>
 
+    <section class="onboarding" id="onboarding" aria-labelledby="onboardingTitle" hidden>
+      <div class="onboarding-heading"><div><p class="eyebrow">首次连接</p><h2 id="onboardingTitle">先体验，或连接你的 BOSS</h2></div><button class="text-btn" id="toggleOnboarding" type="button" aria-expanded="true">收起说明</button></div>
+      <div class="onboarding-summary"><p id="onboardingStatus">正在检查 Chrome 连接…</p><div class="onboarding-actions"><button class="primary" id="onboardingDemo" type="button">先体验示例</button><button class="secondary" id="onboardingConnect" type="button">连接 BOSS</button><button class="text-btn" id="quitApp" type="button" hidden>退出应用</button></div></div>
+      <ol class="onboarding-steps" id="onboardingSteps"><li>打开 Chrome 的 <code>chrome://extensions</code>，开启“开发者模式”。</li><li>点击“加载已解压的扩展程序”，选择下方路径。</li><li>在同一个 Chrome 登录 BOSS，回到这里刷新连接状态。</li></ol>
+      <div class="extension-path"><span>扩展文件夹</span><code id="extensionPath">准备中…</code><button class="secondary" id="copyExtensionPath" type="button">复制路径</button><button class="text-btn" id="openExtensionFolder" type="button">打开文件夹</button><button class="text-btn" id="openBoss" type="button">打开 BOSS</button><button class="text-btn" id="refreshOnboarding" type="button">刷新连接</button></div>
+      <p class="detail-note">连接成功只表示本地扩展可用；BOSS 登录或安全验证会在开始搜索时检查。不会自动修改扩展权限或发送任何平台操作。</p>
+    </section>
     <section class="notice"><strong>本地数据说明</strong><span>采集结果、备注和投递状态只保存在本地服务中。示例体验使用合成数据，不会访问招聘网站。</span></section>
     <section class="layout">
       <aside class="config-card" aria-label="任务配置">

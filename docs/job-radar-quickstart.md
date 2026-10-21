@@ -1,71 +1,52 @@
-# 第一次使用：从下载到导出求职清单
+# Windows 便携包快速开始
 
-这份指南面向第一次从 GitHub 下载工具的求职者。日常使用在网页界面里填选项，不需要写代码或 JSON；首次安装仍需要执行几条命令。当前已完成 Windows + Chrome 小范围真实验证，其他系统尚未完成同等验证。
+本指南面向第一次使用 Job Radar 的求职者。v0.2.0 Windows 64 位便携包自带官方 Python 运行环境和依赖，正常使用不需要安装 Python、uv 或其他开发工具。
 
-## 先看看最终会得到什么
+![Windows 便携版首次体验界面（合成数据）](images/job-radar-portable.png)
 
-- [界面预览](images/job-radar-workspace.png)：填写关键词、城市和筛选，查看岗位与 JD，记录个人进度。
-- [合成求职清单 CSV](../examples/job-radar-sample.csv)：在 GitHub 可直接预览，也可下载后用 Excel 打开。全部岗位均为演示数据。
-- [怎样把 JD 用于简历和面试准备](job-radar-resume-workflow.md)：介绍导出以后的使用方法。
+## 1. 下载正确的文件
 
-这不是 Chrome 商店里点击一次就装好的独立插件。它由本地工作台和 Chrome 扩展配合运行；扩展负责连接 BOSS 页面，本地工作台负责选项、记录与导出。
+从 Release 页面下载 **`Job-Radar-0.2.0-Windows-x64.zip`**：
 
-## 1. 下载并解压
+<https://github.com/HSLMLJL/boss-job-search/releases/download/v0.2.0/Job-Radar-0.2.0-Windows-x64.zip>
 
-下载[当前源码 ZIP](https://github.com/HSLMLJL/boss-job-search/archive/refs/heads/main.zip)，右键选择“全部解压缩”。进入解压后的项目文件夹，直到看到 `pyproject.toml`、`Start-Job-Radar.cmd` 和 `extension` 文件夹。
+不要下载 GitHub 自动生成的 **Source code (zip)**；那是给源码用户的，不是可直接启动的便携包。
 
-不要在 ZIP 压缩包预览窗口里直接运行。你也可以在[版本下载页](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.1.0)取得固定的 v0.1.0 Beta 源码包；`.whl` 和 `.tar.gz` 主要供 Python 开发者使用。
+## 2. 全部解压
 
-## 2. 准备运行环境
+右键下载的 ZIP，选择“全部解压缩”，再打开解压后的文件夹。确认里面至少有：
 
-需要联网安装依赖和一个可正常使用的 Chrome。已有 uv 的用户直接继续。
+- `Start-Job-Radar.cmd`
+- `runtime` 文件夹
+- `extension` 文件夹
 
-Windows 可打开 PowerShell，按 [uv 官方安装说明](https://docs.astral.sh/uv/getting-started/installation/#winget)执行：
+不要在 ZIP 的预览窗口内双击启动脚本；请先完整解压。
 
-```powershell
-winget install --id=astral-sh.uv -e
-```
+## 3. 启动并先体验示例
 
-安装后关闭并重新打开终端，执行 `uv --version`，能看到版本号即可。若电脑没有 `winget`，使用上述官方页面中的其他安装方式。
+双击 `Start-Job-Radar.cmd`。本地工作台会在浏览器打开；若浏览器没有自动出现，可再双击一次启动脚本。
 
-在刚才解压的项目文件夹内，点击文件资源管理器的地址栏，输入 `powershell` 并回车。随后执行：
+第一次先点击 **“体验合成示例”**。它不会访问 BOSS，不需要登录、加载 Chrome 扩展或提供模型密钥。你可以先查看岗位卡片、JD 状态、筛选依据和导出入口。
 
-```powershell
-uv sync --python 3.13
-```
+关闭浏览器页面不会退出 Job Radar；启动窗口仍在运行时可以再次打开页面。便携包会处理默认端口 `8766` 被占用的情况并选择可用端口；重复双击会复用正在运行的本地服务，而不会创建另一份工作区。
 
-这里指定了本项目已测试的 Python 系列。uv 可按需下载 Python，无需先自行处理多个 Python 版本；具体行为见 [uv Python 安装说明](https://docs.astral.sh/uv/guides/install-python/)。依赖下载完成、终端重新出现输入提示后再继续。首次下载所需时间取决于网络。
+## 4. 在 UI 中连接 Chrome
 
-## 3. 先体验示例，不用登录 BOSS
+要搜索自己的岗位，在工作台顶部的首次连接卡点击 **“连接 BOSS”**：
 
-双击 `Start-Job-Radar.cmd`，或在项目终端运行：
+1. 按卡片显示的路径，在 Chrome 地址栏打开 `chrome://extensions`。
+2. 开启右上角“开发者模式”。
+3. 点击“加载已解压的扩展程序”，选择便携包中的 `extension` 文件夹。
+4. 在同一个 Chrome 正常登录 BOSS，确认网页能打开职位列表。
+5. 回到工作台，点击“刷新连接”。
 
-```powershell
-uv run python -m job_radar ui
-```
+连接成功只说明本地扩展已连接；登录或安全验证会在开始搜索时再检查。Job Radar 不会替你修改扩展权限、绕过验证、投递岗位或发送消息。
 
-看到本地工作台后，点 **“体验合成示例”**，检查能否看到岗位卡片、JD、筛选原因和导出文件。示例不请求 BOSS，不需要安装扩展、提供简历或填写模型 API Key。请保持启动工作台的终端开着；关闭终端会停止网页服务。
+## 5. 用小预算做一次真实搜索
 
-## 4. 连接自己的 Chrome
+先填一个你真正考虑的岗位关键词，选择一个城市，其他筛选可以暂时留空。建议第一次使用：
 
-在项目文件夹再开一个终端，运行：
-
-```powershell
-uv run python -m job_radar setup
-```
-
-1. 复制命令打印的扩展文件夹路径。
-2. 在日常 Chrome 地址栏打开 `chrome://extensions`，开启右上角“开发者模式”。
-3. 点“加载已解压的扩展程序”，选择刚才打印的文件夹（应包含 `manifest.json`）。
-4. 在同一个 Chrome 正常登录 BOSS 直聘，确认能看到职位列表，再刷新 Job Radar 工作台。
-
-“Chrome 插件已连接”只表示连接成功。实际登录或安全验证状态会在搜索时检查；需要验证时，回到网页人工处理。
-
-## 5. 做一次小范围真实搜索
-
-先填一个你真正考虑的岗位关键词、选一个城市，其他筛选暂时留空。建议从以下设置开始：
-
-| 界面选项 | 第一次建议值 |
+| 界面选项 | 建议值 |
 | --- | --- |
 | JD 深度 | 初筛后补 JD |
 | 缺失信息 | 保留，稍后人工判断 |
@@ -76,26 +57,43 @@ uv run python -m job_radar setup
 | 秒数 | 180 |
 | 导出格式 / 范围 | Excel / 全部岗位 |
 
-点 **“搜索并采集”**。保持扩展打开的 BOSS 专用搜索页可见，避免手动改词或翻页。岗位数量是上限，不保证一定返回 5 条；这些预算也不会补齐所有岗位的 JD。筛选在采集后本地应用，不会把全部条件传给 BOSS 搜索页。
+点击 **“搜索并采集”**。保持扩展打开的专用 BOSS 搜索页可见，不要在运行中手动改搜索词或翻页。岗位数与 JD 数都是上限，不保证会返回相同数量；筛选在采集后本地应用，不能把这一轮当作平台全部岗位。
 
-在结果里检查：标题/公司/链接是否对应，JD 是否标为已采集，筛选依据是否符合你的判断。达到上限而停止属于预期结果，不能把本轮结果当成平台所有岗位。
+## 6. 导出、记录和退出
 
-## 6. 把清单用于求职
+在结果里检查标题、公司、链接、JD 状态和筛选依据。把准备继续处理的岗位标为“考虑”，在备注写下下一步；由你在原 BOSS 页面完成投递或沟通，再手动改为“已投”或“面试”。
 
-把值得继续了解的岗位改成 **“考虑”**，在备注中写“为什么合适 / 还缺什么证据 / 下一步”。在“导出内容”中选择所需列，点“按当前设置重新导出”。Excel 链接和其他已选格式会出现在结果区。
+需要表格时，在“导出内容”选择字段和格式，点击 **“按当前设置重新导出”**。任务、岗位历史、备注和导出默认保存到：
 
-打开原岗位页面核对后，由你在 BOSS 里投递或沟通；再手动将记录改成“已投”或“面试”。这些状态是本地台账，不会自动同步 BOSS。
+```text
+%LOCALAPPDATA%\Job-Radar
+```
 
-## 卡住时怎么处理
+结束时请在首次连接卡点击 **“退出应用”**，不要只关浏览器标签页。下次仍从解压目录双击 `Start-Job-Radar.cmd`，本地历史和模板会继续保留。
 
-| 你看到的情况 | 下一步 |
+## 常见问题
+
+| 现象 | 处理方式 |
 | --- | --- |
-| `uv` 不是命令 / 双击后一闪而过 | 重新开终端运行 `uv --version`，确认 uv 已安装；从终端运行启动命令以查看报错 |
-| 找不到 `pyproject.toml` | 切到包含该文件的项目目录，再执行命令 |
-| 下载依赖失败 | 核对网络和终端错误；下载完成前工作台不能运行 |
-| 浏览器没有自动打开 | 手动访问终端打印的本地地址，默认 `http://127.0.0.1:8766` |
-| 端口被占用 | 执行 `uv run python -m job_radar ui --port 8767` |
-| 扩展未连接 / 需要登录 | 按第 4 步检查扩展加载位置、同一个 Chrome 的登录状态，再刷新工作台 |
-| 零条岗位 / JD 空白 | 先看任务状态与 JD 状态；参考[错误状态说明](job-radar-guide.md#搜索没有拿到岗位时)，不要只凭“有导出文件”判断成功 |
+| 下载的是 Source code ZIP | 回到 Release 页面，下载名称含 `Windows-x64.zip` 的资产。 |
+| 在 ZIP 预览窗口内启动失败 | 先“全部解压缩”，再从解压目录启动。 |
+| 解压后缺少 `runtime`、`extension` 或启动脚本 | 删除这份不完整文件，重新下载便携包并重新解压。 |
+| Chrome 未显示已加载扩展 | 在 `chrome://extensions` 检查是否选中了便携包的 `extension` 文件夹；不要选择 ZIP 文件本身。 |
+| 双击后浏览器没有打开 | 再双击一次启动脚本；若仍失败，查看启动窗口的提示，并在数据目录的日志中保留脱敏报错。 |
+| 搜索提示未连接或需要登录 | 确认扩展已加载、使用的是同一个 Chrome，并在 BOSS 页面完成登录或必要验证后刷新连接。 |
+| 找不到历史、导出或需要排查问题 | 先检查 `%LOCALAPPDATA%\Job-Radar`；请不要公开上传其中的账号信息、备注或完整求职数据。 |
 
-仍无法使用时，在 [Issues](https://github.com/HSLMLJL/boss-job-search/issues) 写下系统、Chrome 版本、操作步骤与脱敏报错。不要附账号凭据、个人简历或完整求职数据目录。
+当前项目的功能和边界说明见 [README](../README.md)。如需用 AI 或脚本生成并执行本地搜索任务，见[命令与 AI 助手调用](job-radar-agent-usage.md)。
+
+<details>
+<summary>开发者：从源码运行</summary>
+
+源码方式需要自行安装 [uv](https://docs.astral.sh/uv/)，然后在包含 `pyproject.toml` 的目录运行：
+
+```powershell
+uv sync --python 3.13
+uv run python -m job_radar ui
+```
+
+源码方式不等同于 Windows 便携包；不要把 GitHub Source code ZIP 当作免安装版本。
+</details>

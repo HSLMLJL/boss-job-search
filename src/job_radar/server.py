@@ -6,10 +6,13 @@ import asyncio
 from copy import deepcopy
 from pathlib import Path
 import secrets
+from typing import Callable
 from urllib.parse import quote
 
 from aiohttp import web
 
+from job_radar import __version__
+from job_radar.onboarding import install_extension_path, open_extension_folder, open_boss
 from job_radar.config import DEFAULT_CONFIG, TaskConfig, options
 from job_radar.exporter import export_run, public_job
 from job_radar.service import Workspace, auth_status
@@ -22,9 +25,13 @@ def visible_run(run: dict) -> dict:
     return {key: val for key, val in run.items() if key not in {"checkpoint", "exports"}}
 
 
-def create_app(data_dir: Path, *, workspace: Workspace | None = None) -> web.Application:
+def create_app(data_dir: Path, *, workspace: Workspace | None = None,
+               packaged: bool = False, instance_id: str | None = None,
+               request_quit: Callable[[], None] | None = None,
+               startup_state: dict | None = None) -> web.Application:
     workspace = workspace or Workspace(data_dir)
     token = secrets.token_urlsafe(32)
+    startup_state = startup_state if startup_state is not None else {}
 
     @web.middleware
     async def local_only(request, handler):
@@ -70,7 +77,43 @@ def create_app(data_dir: Path, *, workspace: Workspace | None = None) -> web.App
     async def bootstrap(request):
         return web.json_response({"defaults": deepcopy(DEFAULT_CONFIG), "options": options(),
             "templates": workspace.store.list_templates(), "runs": [visible_run(run) for run in workspace.store.list_runs()],
-            "auth": auth_status(data_dir), "csrf_token": token})
+            "auth": await auth_info(),
+            "onboarding": onboarding_info(), "csrf_token": token})
+
+    def onboarding_info():
+        try:
+            path = str(install_extension_path())
+        except (OSError, ValueError, KeyError):
+            path = ""
+        return {"packaged": packaged, "extension_path": path,
+                "version": __version__}
+
+    async def auth_info():
+        status = await asyncio.to_thread(auth_status, data_dir)
+        if not status["ready"] and startup_state.get("message"):
+            status["message"] = startup_state["message"] + "。合成示例和本地记录仍可使用。"
+        return status
+
+    async def onboarding_status(request):
+        return web.json_response({**onboarding_info(), **await auth_info()})
+
+    async def open_extension(request):
+        await asyncio.to_thread(open_extension_folder)
+        return web.json_response({"ok": True})
+
+    async def open_platform(request):
+        await asyncio.to_thread(open_boss)
+        return web.json_response({"ok": True})
+
+    async def identity(request):
+        return web.json_response({"app": "job-radar", "instance_id": instance_id})
+
+    async def quit_app(request):
+        if not packaged or request_quit is None:
+            raise ValueError("此启动方式请在原终端退出")
+        workspace.shutdown()
+        asyncio.get_running_loop().call_later(0.3, request_quit)
+        return web.json_response({"ok": True, "message": "正在停止任务并保存记录。应用退出后可关闭此页面。"})
 
     async def templates(request):
         body = await request.json()
@@ -140,11 +183,17 @@ def create_app(data_dir: Path, *, workspace: Workspace | None = None) -> web.App
 
     async def shutdown(app):
         workspace.shutdown()
+        await asyncio.to_thread(workspace.wait_for_shutdown)
 
     app.on_shutdown.append(shutdown)
     app.router.add_get("/", index)
     app.router.add_get("/static/{name}", static)
     app.router.add_get("/api/bootstrap", bootstrap)
+    app.router.add_get("/api/onboarding/status", onboarding_status)
+    app.router.add_post("/api/onboarding/open-extension", open_extension)
+    app.router.add_post("/api/onboarding/open-boss", open_platform)
+    app.router.add_get("/api/app/identity", identity)
+    app.router.add_post("/api/app/quit", quit_app)
     app.router.add_post("/api/templates", templates)
     app.router.add_get("/api/runs", runs)
     app.router.add_post("/api/runs", runs)

@@ -31,7 +31,7 @@ class DemoSource:
 		rows = []
 		for n, (title, summary, experience) in enumerate(
 			(
-				(f"{query or '产品'}经理", "负责需求调研、方案设计与跨团队交付。", "3-5年"),
+				(query or "产品经理", "负责需求调研、方案设计与跨团队交付。", "3-5年"),
 				(f"{query or '产品'}策略专员", "支持市场调研和产品数据分析。", "1-3年"),
 				(f"{query or '产品'}实习生", "协助资料整理与用户访谈。", "在校/应届"),
 			),

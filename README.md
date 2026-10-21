@@ -1,6 +1,6 @@
-# Job Radar｜BOSS 直聘求职助手：职位搜索、岗位筛选、JD 导出与投递记录
+# Job Radar｜BOSS 直聘求职工具：职位搜索、岗位筛选、JD 导出与投递记录
 
-[English](README.en.md) · [GitHub 仓库](https://github.com/HSLMLJL/boss-job-search) · [v0.1.0 Beta 固定代码版](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.1.0)
+[English](README.en.md) · [GitHub 仓库](https://github.com/HSLMLJL/boss-job-search) · [Windows 便携版下载](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.2.0)
 
 面向 BOSS 直聘求职者的本地搜索工作台：设置关键词和城市，收集岗位并按规则初筛；按选择尝试补全 JD（职位描述），导出 Excel、CSV 或 JSON 求职清单，记录“考虑、已投、面试”等进度。产品、运营、开发、设计、数据、销售等方向都可以替换关键词使用，AI 产品经理只是其中一种用法。
 
@@ -10,7 +10,7 @@
 
 ![Job Radar 搜索配置、完整 JD、岗位清单与导出（合成数据演示）](docs/images/job-radar-workspace.png)
 
-*上图为合成数据演示。[无需安装，先看一份示例求职清单](examples/job-radar-sample.csv)。v0.1.0 Beta 已在 Windows 正常 Chrome 小范围验证：1 页任务保存 5 个岗位、获得 3 个非空 JD，并导出三种格式；这不是全平台覆盖结论。*
+*上图为合成数据演示。[无需安装，先看一份示例求职清单](examples/job-radar-sample.csv)。v0.2.0 Windows 便携包已在正常 Chrome 小范围验证：1 页任务保存 5 个岗位、获得 3 个非空 JD，并导出三种格式；这不是全平台覆盖结论。*
 
 ## 三种常见用法
 
@@ -20,7 +20,18 @@
 | 对照 JD 准备简历 | 初筛岗位的 JD、筛选原因与可导出的岗位要求清单；[人工准备材料的方法](docs/job-radar-resume-workflow.md) |
 | 跟进申请 | `待看`、`考虑`、`已投`、`面试`、`不合适` 状态和备注 |
 
-## 第一次使用：先体验，再连接真实搜索
+## 第一次使用：Windows 便携包优先
+
+下载 [Job-Radar-0.2.0-Windows-x64.zip](https://github.com/HSLMLJL/boss-job-search/releases/download/v0.2.0/Job-Radar-0.2.0-Windows-x64.zip)（约 16 MB）。包内自带官方 Python 运行环境与依赖，**无需先安装 Python 或 uv**。
+
+1. 右键 ZIP 选择“全部解压缩”，进入解压后的文件夹。**不要从压缩包预览窗口直接启动，也不要下载 GitHub 的 Source code ZIP 来代替便携包。**
+2. 双击包内 `Start-Job-Radar.cmd`。本地工作台会打开；便携包默认把任务、导出和备注保存到 `%LOCALAPPDATA%\Job-Radar`。
+3. 先点 **体验合成示例**，无需登录 BOSS 或加载扩展。
+4. 需要真实搜索时，按界面“连接 BOSS”引导：在 Chrome 手动开启开发者模式、加载包内 `extension` 文件夹、登录 BOSS，再刷新连接状态。扩展权限不会被自动修改。
+
+完整图文步骤见 [Windows 便携包快速开始](docs/job-radar-quickstart.md)。
+
+### 源码方式（开发或高级用户）
 
 首次需要安装本地运行环境，日常在界面里填选项。Windows + Chrome 已完成小范围验证，其他系统尚未完成同等验证。第一次使用 Python/uv 的用户从[逐步安装指南](docs/job-radar-quickstart.md)开始；已有环境的用户可按下面步骤操作，uv 可按需安装 Python。
 
@@ -35,7 +46,7 @@
 3. 在本地工作台点击 **体验合成示例**。它不需要 BOSS 登录、Chrome 扩展或模型密钥。
 4. 要真实搜索时运行 `uv run python -m job_radar setup`。按提示在 Chrome 的 `chrome://extensions` 开启开发者模式，选择“加载已解压的扩展程序”，选中命令打印的 `extension` 路径；随后在同一个 Chrome 登录 BOSS。回到工作台填写关键词、城市，选“初筛后补 JD”并开始搜索。
 
-完成 `uv sync` 后，Windows 也可双击 `Start-Job-Radar.cmd`。完整步骤见 [Windows 本地安装](docs/job-radar-quickstart.md)。Beta 下载页提供固定的 v0.1.0 源码。
+完成 `uv sync` 后，源码用户也可双击仓库内的 `Start-Job-Radar.cmd`。普通用户直接使用上方便携包即可。
 
 ## 日常在界面里设置什么
 
@@ -60,7 +71,7 @@ uv run python -m job_radar run my-search.json
 uv run python -m job_radar export RUN_ID
 ```
 
-筛选、预算、导出字段和故障处理见[使用指南](docs/job-radar-guide.md)；示例见[通用岗位](examples/job-radar-general.json)与[运营岗位](examples/job-radar-operations.json)。`--data-dir PATH` 只隔离本地工作库，Chrome 登录状态仍由 Chrome 管理。
+筛选、预算、导出字段和故障处理见[使用指南](docs/job-radar-guide.md)；示例见[通用岗位](examples/job-radar-general.json)与[运营岗位](examples/job-radar-operations.json)。`--data-dir PATH` 只隔离本地工作库，Chrome 登录状态仍由 Chrome 管理。若由 AI 或脚本创建任务，见[命令与 AI 助手调用](docs/job-radar-agent-usage.md)。
 
 ## 隐私、致谢与许可证
 

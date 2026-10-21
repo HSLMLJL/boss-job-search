@@ -1,9 +1,9 @@
 {
   "name": "boss-job-search",
-  "description": "BOSS直聘求职助手 / 找工作工具：多关键词、多城市职位搜索与职位采集，岗位筛选、岗位采集、可选完整JD、Excel/CSV/JSON导出、投递记录与求职管理。收集招聘信息，为岗位对比和简历准备整理资料。BOSS Zhipin job search tool, job scraper, JD exporter & job application tracker.",
+  "description": "BOSS直聘求职工具 / 找工作助手：多关键词、多城市职位搜索与岗位采集，可选完整JD、岗位筛选、Excel/CSV/JSON导出与投递记录。Windows下载解压即启动，也可由AI助手通过命令行整理投递清单。BOSS Zhipin job search tool, job scraper, JD exporter & job application tracker.",
   "topics": ["boss-zhipin", "zhipin", "job-search", "job-search-tool", "job-hunting", "job-scraper", "job-description", "job-tracker", "job-application-tracker", "excel-export", "data-export", "chrome-extension", "career-tools", "python", "local-first"],
   "publication_status": "published",
   "repository_url": "https://github.com/HSLMLJL/boss-job-search",
-  "release_url": "https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.1.0",
+  "release_url": "https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.2.0",
   "notes": "Repository metadata revised around job-seeker discovery and practical workflows. Resume preparation uses exported JD as input; no built-in resume rewriting or matching score is claimed."
 }

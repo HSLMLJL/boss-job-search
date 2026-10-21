@@ -1,0 +1,8 @@
+# This is deliberately narrower than pyproject.toml.  Job Radar's portable
+# edition uses the normal-Chrome Bridge and does not ship the legacy browser
+# automation / cookie-extraction stacks.
+aiohttp==3.14.3
+click==8.4.2
+httpx[socks]==0.28.1
+openpyxl==3.1.5
+PyYAML==6.0.3

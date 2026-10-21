@@ -5,6 +5,8 @@ from __future__ import annotations
 from contextlib import contextmanager
 from pathlib import Path
 import threading
+import time
+import logging
 
 from job_radar.config import TaskConfig
 from job_radar.exporter import export_run
@@ -43,17 +45,19 @@ def collection_lock(root: Path):
 
 def auth_status(data_dir: Path) -> dict:
 	try:
-		from boss_agent_cli.commands.radar import _radar_extension_data
+		from job_radar.onboarding import extension_data
 
-		state = _radar_extension_data()
+		state = extension_data()
 		ready = state.get("verified") is True
+	except FileNotFoundError:
+		return {"ready": False, "message": "扩展文件不完整，请重新完整解压下载包。合成示例与本地记录仍可使用。"}
 	except Exception:
 		ready = False
 	return {
 		"ready": ready,
 		"message": "Chrome 插件已连接；网页登录与验证状态将在搜索时检查"
 		if ready
-		else "请运行 uv run python -m job_radar setup，按提示连接 Chrome 扩展并在 Chrome 登录 BOSS；也可以先体验合成示例。",
+		else "请按下方「连接 BOSS」步骤加载 Chrome 扩展并登录；也可以先体验合成示例。命令行用户可运行 setup 查看安装路径。",
 	}
 
 
@@ -96,6 +100,7 @@ class Workspace:
 		self.store = JobStore(data_dir)
 		self.active: dict[str, tuple[threading.Thread, threading.Event]] = {}
 		self._guard = threading.Lock()
+		self.closing = False
 		# Only recover orphaned runs when no other CLI or workspace owns the lock.
 		try:
 			with collection_lock(self.store.root):
@@ -118,6 +123,8 @@ class Workspace:
 
 	def start(self, config: TaskConfig, *, demo: bool = False, run_id: str | None = None) -> dict:
 		with self._guard:
+			if self.closing:
+				raise ValueError("应用正在退出，请等待保存完成后重新启动")
 			if any(thread.is_alive() for thread, _ in self.active.values()):
 				raise ValueError("已有任务正在采集，请先停止或等待完成")
 			if run_id:
@@ -156,6 +163,20 @@ class Workspace:
 		return self.store.get_run(run_id)
 
 	def shutdown(self):
-		for thread, event in self.active.values():
-			if thread.is_alive():
-				event.set()
+		with self._guard:
+			self.closing = True
+			for thread, event in self.active.values():
+				if thread.is_alive():
+					event.set()
+
+	def wait_for_shutdown(self, timeout: float = 90) -> bool:
+		"""Let the bounded current request and its checkpoint/export finish."""
+		with self._guard:
+			threads = [thread for thread, _ in self.active.values()]
+		deadline = time.monotonic() + timeout
+		for thread in threads:
+			thread.join(timeout=max(0, deadline - time.monotonic()))
+		finished = not any(thread.is_alive() for thread in threads)
+		if not finished:
+			logging.warning("Collection did not finish before shutdown deadline; next launch will recover saved checkpoints")
+		return finished

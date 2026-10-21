@@ -1,6 +1,6 @@
 # Job Radar｜BOSS Zhipin Job Search Assistant: Search, Filters, JD Export & Application Tracking
 
-[中文说明](README.md) · [GitHub repository](https://github.com/HSLMLJL/boss-job-search) · [fixed v0.1.0 Beta release](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.1.0)
+[中文说明](README.md) · [GitHub repository](https://github.com/HSLMLJL/boss-job-search) · [Windows download](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.2.0)
 
 Job Radar is a local workspace for BOSS Zhipin job seekers. Search by keywords and cities, apply local screening rules, optionally collect JDs for screened-in jobs, export an Excel/CSV/JSON application list, and record application progress.
 
@@ -14,14 +14,14 @@ The workflow is **search → screen → JD → application list → prepare mate
 
 ## Start with a safe demo
 
-The small real-account validation covered Windows + Chrome. Other systems have not received equivalent validation. Install [uv](https://docs.astral.sh/uv/); it can download the required Python version. Initial setup uses a terminal, while daily use is through the local UI. You can [preview a synthetic output CSV](examples/job-radar-sample.csv) before installing anything.
+The Windows x64 portable edition includes its Python runtime and dependencies. No Python, uv, terminal setup, or AI key is required for normal UI use. You can [preview a synthetic output CSV](examples/job-radar-sample.csv) before downloading anything.
 
-1. Download the latest [source ZIP](https://github.com/HSLMLJL/boss-job-search/archive/refs/heads/main.zip), extract it, and open that folder in a terminal.
-2. Run `uv sync --python 3.13`, then `uv run python -m job_radar ui`.
-3. In the local workspace, choose **体验合成示例**. It needs no BOSS login, extension, or AI key.
-4. For a real search, run `uv run python -m job_radar setup`. In Chrome open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, select the printed `extension` path, then log in to BOSS Zhipin in that Chrome.
+1. Download [Job-Radar-0.2.0-Windows-x64.zip](https://github.com/HSLMLJL/boss-job-search/releases/download/v0.2.0/Job-Radar-0.2.0-Windows-x64.zip), choose **Extract all**, and keep the extracted folder. The automatically generated “Source code” ZIP is for developers.
+2. Double-click `Start-Job-Radar.cmd` in the extracted folder. The local workspace opens in your browser.
+3. Choose **先体验示例** for synthetic jobs. No BOSS login or extension is needed for this step.
+4. For real searches, follow **连接 BOSS** in the UI. In Chrome open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select the displayed `extension` folder. Log in to BOSS in the same Chrome and refresh the connection in Job Radar.
 
-After `uv sync`, Windows users can also double-click `Start-Job-Radar.cmd`. See the [Windows quickstart](docs/job-radar-quickstart.md).
+Chrome extension loading and login are manual first-use steps. Application data stays in `%LOCALAPPDATA%\Job-Radar`; closing the browser tab does not stop the local app—use **退出应用**. Other operating systems have not received equivalent validation. For development, download the [source ZIP](https://github.com/HSLMLJL/boss-job-search/archive/refs/heads/main.zip), install [uv](https://docs.astral.sh/uv/), then run `uv sync --python 3.13` and `uv run python -m job_radar ui`. See the [Windows quickstart](docs/job-radar-quickstart.md) and [AI/CLI usage](docs/job-radar-agent-usage.md).
 
 ## What it does
 

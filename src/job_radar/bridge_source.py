@@ -32,9 +32,9 @@ class BridgeJobRadarSource:
 				raise SourceError("本地 Browser Bridge 不可用") from exc
 		if self._extension_status_reader is None:
 			try:
-				from boss_agent_cli.commands.radar import _radar_extension_data
+				from job_radar.onboarding import extension_data
 
-				self._extension_status_reader = _radar_extension_data
+				self._extension_status_reader = extension_data
 			except Exception as exc:
 				raise SourceError("无法读取 Bridge 扩展完整性") from exc
 		try:

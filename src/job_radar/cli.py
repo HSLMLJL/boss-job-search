@@ -62,10 +62,16 @@ def ui_cmd(ctx, port=8766, open_browser=True):
 
 
 def _start_bridge():
+	from boss_agent_cli.bridge.client import BridgeClient
 	from boss_agent_cli.bridge.daemon import is_daemon_running, start_daemon_background
 
+	client = BridgeClient()
+	if client.is_running() and client.status() is not None:
+		return
 	if not is_daemon_running():
 		start_daemon_background()
+	if not client.is_running() or client.status() is None:
+		raise RuntimeError("本地 Chrome Bridge 未就绪，请检查 19826 端口是否被其他程序占用")
 
 
 def _require_bridge():
@@ -79,12 +85,12 @@ def _require_bridge():
 @click.pass_context
 def setup_cmd(ctx):
 	"""启动本地连接服务，并显示 Chrome 扩展安装步骤。"""
-	from boss_agent_cli.commands.radar import bundled_bridge_extension_path
+	from job_radar.onboarding import install_extension_path
 
 	_require_bridge()
 	click.echo("1. 在 Chrome 打开 chrome://extensions，开启开发者模式。")
 	click.echo("2. 点击「加载已解压的扩展程序」，选择以下目录：")
-	click.echo(str(bundled_bridge_extension_path().resolve()))
+	click.echo(str(install_extension_path()))
 	click.echo("3. 在这个 Chrome 中正常登录 BOSS，再打开 Job Radar 工作台。")
 	click.echo(auth_status(ctx.obj["data_dir"])["message"])
 
