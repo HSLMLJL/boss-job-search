@@ -2,7 +2,7 @@
 
 [中文说明](README.md) · [GitHub repository](https://github.com/HSLMLJL/boss-job-search) · [Windows portable download](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.2.0)
 
-Job Radar is a local job-search workspace for ordinary BOSS Zhipin job seekers. Choose several keywords and cities, collect job listings into one application list, filter them locally, optionally try to collect full job descriptions (JDs), then export the fields you need to Excel, CSV, or JSON. Keep your own status and notes for jobs you are considering, have applied for, or are interviewing for.
+Job Radar is a local BOSS Zhipin job search tool, job scraper, JD exporter, and job application tracker for ordinary job seekers. Choose several keywords and cities, collect job listings into one application list, filter them locally, optionally try to collect full job descriptions (JDs), then export the fields you need to Excel, CSV, or JSON. Keep your own status and notes for jobs you are considering, have applied for, or are interviewing for.
 
 The practical flow is **search jobs → collect and filter listings → optionally collect JDs → export an application list → prepare materials and apply yourself → follow up**. It works for product, operations, engineering, design, data, sales, and other job searches; AI product management is only one possible set of keywords.
 
