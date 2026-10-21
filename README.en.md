@@ -1,90 +1,38 @@
-# Job Radar｜BOSS Zhipin Job Search & Career Assistant
+# Job Radar｜BOSS Zhipin Job Search Assistant: Search, Filters, JD Export & Application Tracking
 
-[中文说明](README.md)
+[中文说明](README.md) · [GitHub repository](https://github.com/HSLMLJL/boss-job-search) · [fixed v0.1.0 Beta release](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.1.0)
 
-**Get it:** [GitHub repository](https://github.com/HSLMLJL/boss-job-search) · [v0.1.0 Beta download page](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.1.0)
+Job Radar is a local workspace for BOSS Zhipin job seekers. Search by keywords and cities, apply local screening rules, optionally collect JDs for screened-in jobs, export an Excel/CSV/JSON application list, and record application progress.
+
+The workflow is **search → screen → JD → application list → prepare materials manually → follow up**. Collected JDs are input for your own resume preparation, not automatic resume rewriting. Job Radar does not include resume generation, AI fit scoring, automatic applications, or automatic messages.
+
+> Use your own authorized account and follow platform rules. The project does not promise complete platform coverage.
 
 ![Job Radar local workspace with clearly marked synthetic demo jobs](docs/images/job-radar-workspace.png)
 
-Job Radar is an open-source tool that helps you find work on BOSS Zhipin. Search multiple keywords and cities, filter job listings, optionally collect full job descriptions, and export a follow-up list to Excel, CSV, or JSON.
+*A small Windows normal-Chrome v0.1.0 Beta check saved five jobs from one page, collected three non-empty JDs, and exported three formats. This is not a platform-wide coverage claim.*
 
-Configure what to search, how much information to collect, and what to export; keep the results, optional full job descriptions, decisions, and follow-up status on your own computer.
+## Start with a safe demo
 
-It is designed for ordinary job seekers across industries and roles. AI Product Manager is one possible saved search, not the product boundary.
+The small real-account validation covered Windows + Chrome. Other systems have not received equivalent validation. Install [uv](https://docs.astral.sh/uv/); it can download the required Python version. Initial setup uses a terminal, while daily use is through the local UI. You can [preview a synthetic output CSV](examples/job-radar-sample.csv) before installing anything.
 
-> Current source: BOSS Zhipin. Follow the platform rules and use only your own authorized account. Job Radar does not guarantee complete platform coverage and does not automatically apply or message on your behalf.
+1. Download the latest [source ZIP](https://github.com/HSLMLJL/boss-job-search/archive/refs/heads/main.zip), extract it, and open that folder in a terminal.
+2. Run `uv sync --python 3.13`, then `uv run python -m job_radar ui`.
+3. In the local workspace, choose **体验合成示例**. It needs no BOSS login, extension, or AI key.
+4. For a real search, run `uv run python -m job_radar setup`. In Chrome open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, select the printed `extension` path, then log in to BOSS Zhipin in that Chrome.
 
+After `uv sync`, Windows users can also double-click `Start-Job-Radar.cmd`. See the [Windows quickstart](docs/job-radar-quickstart.md).
 
-## What you can configure
+## What it does
 
-| Area | Options |
+| Need | Result |
 | --- | --- |
-| Search | Multiple keywords and cities; salary, experience, education, industry, company size/stage, job type, welfare, include/exclude terms |
-| JD collection | `none`, `matched` (only filtered-in jobs), or `all` |
-| Budget | Pages per keyword-city pair; task-wide requests, JD fetches, jobs, and wall-clock seconds |
-| Export | Excel, CSV, JSON; selected columns; matched, all, or newly recorded jobs |
-| Follow-up | Status and notes retained across later sightings of the same job |
+| Find work in several cities | Merged keyword/city searches with source keywords, basic facts, and links |
+| Prepare materials against real JDs | Exported screened-job JDs and requirements for manual use; see the [resume-preparation workflow](docs/job-radar-resume-workflow.md) |
+| Track applications | Local status and notes that persist when the same job appears again |
 
-Job Radar records *first seen locally* separately from a platform publication time. A stopped or capped run is marked as incomplete; it does not mean that no more jobs exist.
+`matched` JD collection means a job passed your **local rules**; it is not AI scoring. Filters are applied locally after list/JD collection, so not every rule is sent to the platform. `pages` is per keyword-city pair; requests, JD fetches, jobs, and seconds are shared run limits. Empty/unsupported detail panels, a budget limit, or interruption remain incomplete.
 
-`limits.pages` is the maximum page count for each keyword-city pair. `requests`, `details`, `jobs`, and `seconds` are shared limits for each start or resume window. A shared limit may stop the task before later pairs are visited.
+Keep the dedicated Chrome search tab visible during a run and do not change its search or page manually. A browser or extension restart keeps saved results but loses the live checkpoint; start a new search rather than expecting cross-restart resume.
 
-## Open the local workspace first
-
-For ordinary use, you need Python 3.10+, [uv](https://docs.astral.sh/uv/), and your everyday Chrome browser. Open the [v0.1.0 Beta download page](https://github.com/HSLMLJL/boss-job-search/releases/tag/v0.1.0), download **Source code (ZIP)**, extract it, and run the following in the extracted project directory:
-
-```bash
-uv sync
-```
-
-For the first setup, start the local Browser Bridge:
-
-```bash
-uv run python -m job_radar setup
-```
-
-The command prints the absolute path of this repository's `extension` folder. Open `chrome://extensions`, turn on Developer mode, choose **Load unpacked**, and select that folder. Then sign in to BOSS Zhipin in the same everyday Chrome. This is a one-time local extension authorization: Chrome keeps the login session, so no Cookie copy or `boss login` command is needed.
-
-On Windows, double-click `Start-Job-Radar.cmd` to start the local workspace. Or run:
-
-```bash
-uv run python -m job_radar ui
-```
-
-It opens `http://127.0.0.1:8766` on your computer and starts the local Bridge. The installed `job-radar` short command also works; if a Windows policy blocks that generated entry point, use the module commands shown here.
-
-## Then try the CLI and synthetic demo
-
-```bash
-uv run python -m job_radar demo
-```
-
-`demo` uses synthetic data only. It does not log in, access BOSS Zhipin, require Chrome, or use an AI key. For a real search, complete the extension setup above and sign in through everyday Chrome, then run:
-
-```bash
-uv run python -m job_radar init --output my-search.json
-uv run python -m job_radar run my-search.json
-```
-
-Continue or export a saved run:
-
-```bash
-uv run python -m job_radar resume RUN_ID
-uv run python -m job_radar export RUN_ID
-```
-
-See the [Chinese usage guide](docs/job-radar-guide.md), [general example](examples/job-radar-general.json), and [operations example](examples/job-radar-operations.json). Default data lives in `~/.boss-agent/job-radar`; use `--data-dir PATH` to isolate another local workspace. It does not move or copy Chrome's login session.
-
-## Privacy and scope
-
-The local workspace stores task configurations, job history, statuses, and notes. Core collection, filtering, tracking, and export do not require an LLM. AI analysis, the existing CLI, and MCP are advanced capabilities.
-
-Real search uses a dedicated Chrome search tab bound by the extension. Keep that tab visible while a run is active; do not manually change its query or page at the same time. Filtering is applied locally after list/JD capture, so not every filter is necessarily sent as a platform search parameter. A full JD requires a visible, verified job-detail panel; empty or unsupported panels remain incomplete. Saved results persist, but a browser or extension restart loses the live page checkpoint and requires a new search rather than a cross-restart resume.
-
-## Acknowledgements
-
-Built on the MIT-licensed [boss-agent-cli](https://github.com/can4hou6joeng4/boss-agent-cli), with original notices and license retained.
-
-## License
-
-[MIT License](LICENSE)
+Daily use is through the UI; JSON is optional for reusable configurations. The [usage guide](docs/job-radar-guide.md) covers filters, budgets, exports, and recovery. Core search, filters, tracking, and export do not need an LLM. Built on the MIT-licensed [boss-agent-cli](https://github.com/can4hou6joeng4/boss-agent-cli), with original notices retained. [MIT License](LICENSE).

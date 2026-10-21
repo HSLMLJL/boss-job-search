@@ -71,6 +71,7 @@ designs/
 !/docs/images/
 /examples/*
 !/examples/job-radar-*.json
+!/examples/job-radar-sample.csv
 /tests/*
 !/tests/test_job_radar_*.py
 !/tests/test_search_filters.py

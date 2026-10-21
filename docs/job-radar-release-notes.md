@@ -38,15 +38,14 @@
 
 GitHub 的默认仓库搜索会检索仓库名称、简介和 topics；README 正文需要通过 `in:readme` 才会被专门检索。当前公开仓库为 [HSLMLJL/boss-job-search](https://github.com/HSLMLJL/boss-job-search)。可用下表检查索引，不承诺固定排名。依据见 [GitHub 官方仓库搜索说明](https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories)。
 
-建议使用 [github-metadata.json](github-metadata.json) 中的这一组元数据：
+当前 About 和 topics 以 [github-metadata.json](github-metadata.json) 为准。介绍覆盖职位搜索、职位采集、岗位筛选、JD 导出、投递记录和求职管理；“简历准备”指使用导出 JD 作为资料，不表示内置简历改写或匹配评分。
 
 - **Repository name / slug**：`boss-job-search`
-- **About description（实际只设置这一条）**：BOSS直聘找工作工具｜职位搜索、岗位采集与求职助手：自定义关键词、多城市筛选、可选完整JD、Excel/CSV/JSON导出与进度记录。BOSS Zhipin job search tool, job scraper and job description exporter.
-- **Topics**：`boss-zhipin`、`job-search`、`job-search-tool`、`job-scraper`、`job-description`、`excel-export`、`career-tools`、`python`、`local-first`
+- **About / Topics**：使用上述 JSON 的 `description` 与 `topics` 字段，保持公开信息一致。
 
-这条 About 覆盖“BOSS 直聘、找工作、职位搜索、岗位采集、JD、Excel 导出”，也表达 `boss zhipin job search`、`job scraper`、`job description exporter` 的用户意图。这些词描述实际能力，不承诺不存在的跨平台能力或自动投递功能。
+2026-10-21 首发后按陌生求职者视角修订 README，补充[逐步安装指南](job-radar-quickstart.md)、[合成清单预览](../examples/job-radar-sample.csv)和[JD 到简历准备的方法](job-radar-resume-workflow.md)。本次只更新文档、示例与元数据，v0.1.0 的代码和原发行资产保持原版本。
 
-用未登录窗口或普通 GitHub 搜索页做下列检查，并给索引留出正常生效时间：
+发现性检查应先用未知项目名时会输入的词，如 `BOSS 岗位筛选`、`BOSS 职位采集`、`BOSS 求职助手`，记录实际排名或未出现的范围。下面带限定符的查询只检查索引，不能代替陌生用户的自然搜索。给索引留出正常生效时间，不将一次排名当成长期效果。
 
 | 新人可能会搜什么 | GitHub 检查查询 | 应看到什么 |
 | --- | --- | --- |
