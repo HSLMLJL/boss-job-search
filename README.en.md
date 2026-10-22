@@ -14,6 +14,8 @@ Job Radar does **not** rewrite resumes, calculate AI fit scores, apply for jobs,
 
 *A small Windows normal-Chrome v0.2.0 check saved five jobs from one page, collected three non-empty JDs, and exported Excel, CSV, and JSON. This is a limited smoke check, not a platform-wide coverage claim.*
 
+Job Radar grew out of the developer's own everyday job search. It is also used to collect jobs and organize application lists in that workflow, with improvements informed by firsthand use.
+
 ## Start here: Windows portable edition
 
 For normal use, download [Job-Radar-0.2.0-Windows-x64.zip](https://github.com/HSLMLJL/boss-job-search/releases/download/v0.2.0/Job-Radar-0.2.0-Windows-x64.zip). It includes the required Python runtime and dependencies, so you do not need to install Python, uv, a terminal tool, or an AI key. You can also [preview a synthetic output CSV](examples/job-radar-sample.csv) before downloading anything.
@@ -57,6 +59,18 @@ Use exported JDs as input for your own resume preparation. The [resume-preparati
 ### Can it collect BOSS jobs for me?
 
 It can search and collect listings from a BOSS page through your logged-in Chrome and local extension. You choose keywords, cities, filters, and run limits. Keep the dedicated search page visible, use your own account, and follow platform rules; this is not a claim of complete platform coverage.
+
+### Why does collecting full JDs take longer?
+
+Each full JD requires opening a job's detail panel, waiting for its content, and checking that it belongs to the intended job. More keywords, cities, or jobs can therefore take longer, especially with `all` JD collection. Much of the waiting happens while reading web pages; rule-based filtering, deduplication, and export run locally.
+
+For everyday searches, `matched` collects JDs only for jobs that pass your rules, balancing detail and elapsed time. The app reads listings page by page and JDs one at a time, with request, detail, and runtime limits. It saves collected results and stops when it detects expired login or a security check; these controls do not guarantee that an account will avoid verification. Keep the app running and the dedicated Chrome search page visible. You do not need to copy each job manually.
+
+### Does collection keep using AI model quota?
+
+**The core workflow does not call an LLM.** Search, listing and full-JD collection, rule-based filtering, deduplication, and export are executed by the local program. No model API key is required, and collecting another job does not consume model tokens in Job Radar. Waiting for a page does not require continuous model inference.
+
+If you separately ask an AI assistant to prepare a search configuration, check progress, or analyze exports, those AI interactions remain subject to that service's quota and pricing. The app's request, detail, and time budgets are collection limits, not paid model credits.
 
 ### Can I export Excel and JDs?
 
