@@ -4,6 +4,8 @@
 
 Job Radar is a local BOSS Zhipin job search tool, job scraper, JD exporter, and job application tracker for ordinary job seekers. Choose several keywords and cities, collect job listings into one application list, filter them locally, optionally try to collect full job descriptions (JDs), then export the fields you need to Excel, CSV, or JSON. Keep your own status and notes for jobs you are considering, have applied for, or are interviewing for.
 
+**Let the tool handle the repetitive work of collecting, filtering, and organizing jobs.** Job Radar grew out of our ongoing job search, with experience screening tens of thousands of job records. We continue to use it for everyday job collection, filtering, and application-list management, and improve it through firsthand use.
+
 The practical flow is **search jobs → collect and filter listings → optionally collect JDs → export an application list → prepare materials and apply yourself → follow up**. It works for product, operations, engineering, design, data, sales, and other job searches; AI product management is only one possible set of keywords.
 
 Job Radar does **not** rewrite resumes, calculate AI fit scores, apply for jobs, or send messages. JDs can help you prepare materials, but that preparation remains your decision and work.
@@ -12,9 +14,7 @@ Job Radar does **not** rewrite resumes, calculate AI fit scores, apply for jobs,
 
 ![Job Radar local workspace with clearly marked synthetic demo jobs](docs/images/job-radar-workspace.png)
 
-*A small Windows normal-Chrome v0.2.0 check saved five jobs from one page, collected three non-empty JDs, and exported Excel, CSV, and JSON. This is a limited smoke check, not a platform-wide coverage claim.*
-
-Job Radar grew out of the developer's own everyday job search. It is also used to collect jobs and organize application lists in that workflow, with improvements informed by firsthand use.
+*The screenshot uses synthetic demo data. See the [usage background, browser validation, and release test record](docs/job-radar-validation.md#english-summary).*
 
 ## Start here: Windows portable edition
 
@@ -55,6 +55,10 @@ Keep the dedicated Chrome search tab visible while a run is in progress. Do not 
 Use exported JDs as input for your own resume preparation. The [resume-preparation workflow](docs/job-radar-resume-workflow.md) shows a manual way to compare requirements and prepare materials without claiming that Job Radar generates a resume.
 
 ## FAQ
+
+### Have both Chrome and Edge been tried?
+
+Chrome is the currently recommended browser. **Microsoft Edge has also been validated in earlier firsthand use.** The installation and connection instructions currently use Chrome as the example; see the [validation record](docs/job-radar-validation.md#english-summary) for the respective coverage.
 
 ### Can it collect BOSS jobs for me?
 
